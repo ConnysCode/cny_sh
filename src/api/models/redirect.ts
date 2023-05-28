@@ -1,6 +1,9 @@
-import mongoose, { Schema } from 'mongoose';
+import type { Model } from 'mongoose';
+import { model, models, Schema } from 'mongoose';
 
-const redirectSchema = new Schema({
+import type { IRedirect } from '@/interfaces/redirect';
+
+const redirectSchema = new Schema<IRedirect>({
   url: {
     type: String,
     required: true,
@@ -8,8 +11,9 @@ const redirectSchema = new Schema({
   key: {
     type: String,
     required: true,
+    unique: true,
   },
 });
 
-export default mongoose.models.ShortUrl ||
-  mongoose.model('ShortUrl', redirectSchema);
+export default (models.redirect ||
+  model('redirect', redirectSchema)) as Model<IRedirect>;

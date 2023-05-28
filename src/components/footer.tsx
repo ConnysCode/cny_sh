@@ -7,7 +7,7 @@ interface IFooterProps {}
 
 const Footer: FC<IFooterProps> = () => {
   return (
-    <footer className="absolute bottom-0 left-0 flex w-full items-center justify-center gap-5 border-t border-black/25 py-5 opacity-25">
+    <footer className="absolute bottom-0 left-0 flex w-full items-center justify-center gap-5 text-xs py-5 ">
       <Link target="_blank" href="test">
         API
       </Link>

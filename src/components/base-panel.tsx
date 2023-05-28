@@ -7,8 +7,9 @@ interface IBasePanelProps {
 
 const BasePanel: FC<IBasePanelProps> = ({ children, title }) => {
   return (
-    <div className="flex flex-col gap-3 rounded-md border border-slate-200 bg-white p-3 font-nunito shadow-md">
-      {title && <p className="text-lg font-semibold opacity-50">{title}</p>}
+    <div className="flex h-full w-full flex-col gap-3 overflow-hidden rounded-md bg-white p-3 font-roboto text-text-dark shadow-md">
+      {title && <p className='text-xs'>{title}</p>}
+      <p />
       {/* <hr /> */}
       {children}
     </div>

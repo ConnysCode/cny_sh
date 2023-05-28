@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body {
- @apply bg-slate-200;
+ @apply bg-background;
 }
 
 footer {
   a {
-    @apply hover:text-blue-800 hover:fill-blue-800 transition ease-in-out
+    @apply text-text-dark/25 fill-text-dark/25 hover:text-blue-500 hover:fill-blue-500 transition ease-in-out
   }
 }
