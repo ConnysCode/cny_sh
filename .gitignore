@@ -52,3 +52,5 @@ local
 .vercel
 
 mongodb/
+
+.vscode/

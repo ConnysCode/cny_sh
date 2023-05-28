@@ -2,13 +2,20 @@ import { startsWith } from 'lodash';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-// This function can be marked `async` if using `await` inside
-export function middleware(req: NextRequest) {
-  console.log(`hello 1`, req.nextUrl.pathname);
+import { ErrorMessage } from './utils/api-messages/api-message-enums';
+import connectMongo from './utils/connect-mongo';
+
+export async function middleware(req: NextRequest) {
   if (startsWith(req.nextUrl.pathname, `/api`)) {
-    console.log(`hello 2`);
-    return NextResponse.next();
+    try {
+      await connectMongo();
+      return NextResponse.next();
+    } catch (error) {
+      return NextResponse.json({
+        message: ErrorMessage.unknown_error,
+        success: false,
+      });
+    }
   }
-  console.log(`hello 3`);
-  return NextResponse.redirect(new URL('/home', req.url));
+  return NextResponse.next();
 }
