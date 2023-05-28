@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+ @apply bg-slate-200;
+}
+
+footer {
+  a {
+    @apply hover:text-blue-800 hover:fill-blue-800 transition ease-in-out
+  }
+}
