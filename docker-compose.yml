@@ -6,7 +6,19 @@ services:
     env_file: 
       - .env
     volumes:
-      - ./mongodb/database:/data/db
+      - ./docker/mongodb/database:/data/db
     ports:
       - 27017:27017
     restart: unless-stopped
+  nextjs:
+    container_name: cny_sh_nextjs
+    build:
+      context: ./
+      target: runner
+    volumes:
+      - ./docker/next:/next
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
