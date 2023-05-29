@@ -44,11 +44,11 @@ const Index = () => {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <div className="w-2/5">
+      <div className="md:w-2/5">
         <div className="-mt-24 flex w-full flex-col gap-5">
           <motion.div
             layout
-            className="flex flex-row items-center justify-center"
+            className="flex flex-row flex-wrap items-center justify-center gap-y-5"
           >
             {map(pages, (page) => (
               <button

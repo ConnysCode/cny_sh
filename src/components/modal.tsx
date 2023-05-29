@@ -37,7 +37,7 @@ const Modal: FC<IModalProps> = ({ children, open, requestClose, title }) => {
             key="modal-close-button"
           >
             <BasePanel title={title}>
-              <div className="w-full pr-20">
+              <div className="w-full ">
                 {children}
                 {requestClose && (
                   <button
