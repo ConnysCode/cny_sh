@@ -1,0 +1,6 @@
+MONGODB_URI=mongodb://[user]:[password]@[domain]:27017/?authMechanism=DEFAULT
+MONGO_INITDB_ROOT_USERNAME=[the_intended_username]
+MONGO_INITDB_ROOT_PASSWORD=[the_intended_password]
+
+DOMAIN=[the_root_domain_of_the_app] # Important: Without a trailing slash
+# For example https://cny.sh 

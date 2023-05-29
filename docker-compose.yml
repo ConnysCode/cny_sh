@@ -2,10 +2,9 @@ version: "3.3"
 services:
   mongodb:
     image: mongo:4.4.6
-    container_name: mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: changethis
+    container_name: cny_sh_mongodb
+    env_file: 
+      - .env
     volumes:
       - ./mongodb/database:/data/db
     ports:

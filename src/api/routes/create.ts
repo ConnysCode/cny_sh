@@ -1,8 +1,8 @@
-import { startsWith, toString } from 'lodash';
+import { isBoolean, startsWith, toString } from 'lodash';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import type { IAPIResponse } from '@/interfaces/api';
-import type { IRedirect } from '@/interfaces/redirect';
+import type { IRedirect, IRedirectRequest } from '@/interfaces/redirect';
 import apiMessage from '@/utils/api-messages/api-message';
 import {
   ErrorMessage,
@@ -28,7 +28,11 @@ export default async (
     }
 
     await establishMongoConnection();
-    const url = toString(req.body.url);
+    const body = req.body as IRedirectRequest;
+    const url = toString(body.url);
+    const isWhitespaced = isBoolean(body.is_whitespaced)
+      ? body.is_whitespaced
+      : false;
 
     if (!url || !startsWith(url, `https://`)) {
       apiMessage(res, {
@@ -38,9 +42,13 @@ export default async (
       return;
     }
 
+    const redirectRes = await createRedirect(url, isWhitespaced);
     apiMessage(res, {
       success: true,
-      content: await createRedirect(url),
+      content: {
+        redirect: `${process.env.DOMAIN}/${redirectRes.key}`,
+        ...redirectRes,
+      },
       message: SuccessMessage.success,
     });
   } catch (error) {
@@ -52,6 +60,6 @@ export default async (
   }
 };
 
-export const callCreateRedirect = async (url: string) => {
-  return axiosClient.post<IAPIResponse<IRedirect>>(`create`, { url });
+export const callCreateRedirect = async (data: IRedirectRequest) => {
+  return axiosClient.post<IAPIResponse<IRedirect>>(`create`, data);
 };

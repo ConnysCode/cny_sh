@@ -8,6 +8,11 @@ const redirectSchema = new Schema<IRedirect>({
     type: String,
     required: true,
   },
+  is_whitespaced: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   key: {
     type: String,
     required: true,
@@ -15,5 +20,5 @@ const redirectSchema = new Schema<IRedirect>({
   },
 });
 
-export default (models.redirect ||
+export default (models?.redirect ||
   model('redirect', redirectSchema)) as Model<IRedirect>;

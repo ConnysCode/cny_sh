@@ -1,17 +1,25 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { find, isEqual, map } from 'lodash';
+import { find, isEqual, map, toString } from 'lodash';
 import { useRouter } from 'next/router';
+import type { ReactNode } from 'react';
 import { useState } from 'react';
 
 import BasePanel from '@/components/base-panel';
+import CreateRedirectTab from '@/components/tap-pages/create-redirect-tab';
 
-const pages = [
+const pages: {
+  disabled?: boolean;
+  target: string;
+  title: string;
+  component: ReactNode;
+}[] = [
   {
     target: `1`,
     title: `Create Redirect`,
-    component: <BasePanel title="Create a new Redirect">hi</BasePanel>,
+    component: <CreateRedirectTab />,
   },
   {
+    disabled: true,
     target: `2`,
     title: `Track Usages`,
     component: (
@@ -25,7 +33,9 @@ const pages = [
 const Index = () => {
   const router = useRouter();
 
-  const [currentTab, setCurrentTab] = useState<string>(pages[0]?.target);
+  const [currentTab, setCurrentTab] = useState<string>(
+    toString(pages[0]?.target)
+  );
 
   const handleTabChange = (target: string) => {
     router.push(`/?target=${target}`, undefined, { shallow: true });
@@ -34,27 +44,29 @@ const Index = () => {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <motion.div
-        initial={{ z: 500, opacity: 0 }}
-        animate={{ z: 0, opacity: 1 }}
-      >
-        <div className="flex flex-col gap-5">
+      <div className="w-2/5">
+        <div className="-mt-24 flex w-full flex-col gap-5">
           <motion.div
             layout
             className="flex flex-row items-center justify-center"
           >
             {map(pages, (page) => (
               <button
+                disabled={page.disabled}
                 type="button"
                 onClick={() => {
                   handleTabChange(page.target);
                 }}
-                className="relative px-4 py-2 transition ease-in-out hover:bg-black/5"
+                className={`${
+                  page.disabled
+                    ? `cursor-not-allowed opacity-25`
+                    : `hover:bg-black/5`
+                } relative px-4 py-2 transition ease-in-out`}
               >
                 {page.title}
                 <div className="absolute bottom-0 left-0 h-0.5 w-full px-5">
                   <AnimatePresence mode="popLayout">
-                    {router.query.target === page.target && (
+                    {currentTab === page.target && (
                       <motion.div
                         transition={{ type: 'spring', bounce: 0.05 }}
                         layoutId="tab-bar"
@@ -66,22 +78,11 @@ const Index = () => {
               </button>
             ))}
           </motion.div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              transition={{ duration: 0.25 }}
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: `auto`, opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              key={`page-${currentTab}`}
-            >
-              {
-                find(pages, (page) => isEqual(page.target, currentTab))
-                  ?.component
-              }
-            </motion.div>
-          </AnimatePresence>
+          <div>
+            {find(pages, (page) => isEqual(page.target, currentTab))?.component}
+          </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

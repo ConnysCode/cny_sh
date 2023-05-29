@@ -7,6 +7,9 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['.'],
   },
+  env: {
+    DOMAIN: process.env.DOMAIN,
+  },
   poweredByHeader: false,
   trailingSlash: true,
   basePath: '',
