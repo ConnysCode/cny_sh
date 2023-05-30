@@ -22,4 +22,4 @@ jobs:
       - name: Connect to Server and Deploy
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} 'cd /home/cnysh/cny_sh && git pull'
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} 'cd /home/cnysh/cny_sh && docker compose down && docker compose build nextjs && docker compose up -d'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} 'cd /home/cnysh/cny_sh && docker compose down && sudo docker compose build nextjs && docker compose up -d'
