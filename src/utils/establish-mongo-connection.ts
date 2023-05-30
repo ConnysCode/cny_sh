@@ -1,4 +1,15 @@
 import { connect } from 'mongoose';
 
-export default () =>
-  connect(process.env.MONGODB_URI || '', { dbName: 'cny_sh' });
+export default () => {
+  const uri = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${
+    process.env.MONGO_INITDB_ROOT_PASSWORD
+  }@${
+    process.env.NODE_ENV === `production`
+      ? `mongodb`
+      : `${process.env.MONGO_HOST}`
+  }:${process.env.MONGO_PORT || `27017`}/?authMechanism=DEFAULT`;
+
+  console.log(uri, `uri`);
+
+  return connect(uri, { dbName: 'cny_sh' });
+};

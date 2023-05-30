@@ -17,8 +17,10 @@ services:
       target: runner
     volumes:
       - ./docker/next:/next
-    command: npm run start
+    command: npm run start:next
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: production
+    links: 
+      - mongodb
