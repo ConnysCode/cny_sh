@@ -63,7 +63,7 @@ const CreateRedirectTab: FC<ICreateRedirectTabProps> = () => {
                   required: `An URL is required to use this tool.`,
                   pattern: {
                     value:
-                      /^(https:\/\/)?([\w.-]+)\.([a-zA-Z]{2,6})(\/[\w.-]*)*\/?$/,
+                      /^(https:\/\/)?([\w.-]+)\.([a-zA-Z]{2,6})(\/[\w.-?&]*)*\/?$/,
                     global: true,
                     multiline: true,
                     message: `A secure (https://) URL is required to use this tool.`,
