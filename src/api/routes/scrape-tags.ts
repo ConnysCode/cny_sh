@@ -1,5 +1,7 @@
 import { toString } from 'lodash';
 import type { NextApiRequest, NextApiResponse } from 'next';
+import ogs from 'open-graph-scraper';
+import type { OgObjectInteral } from 'open-graph-scraper/dist/lib/types';
 
 import type { IAPIResponse } from '@/interfaces/api';
 import type { IRedirect } from '@/interfaces/redirect';
@@ -8,18 +10,17 @@ import {
   ErrorMessage,
   SuccessMessage,
 } from '@/utils/api-messages/api-message-enums';
-import establishMongoConnection from '@/utils/establish-mongo-connection';
 
 import axiosClient from '../axios-client';
-import { fetchRedirect } from '../handlers/redirect';
 
 export default async (
   req: NextApiRequest,
   res: NextApiResponse<IAPIResponse<IRedirect>>
 ) => {
   try {
-    const key = toString(req.query.key);
-    if (req.method !== 'GET' || !key) {
+    const url = toString(req.body.url);
+
+    if (req.method !== 'POST' || !url) {
       apiMessage(
         res,
         { success: false, message: ErrorMessage.invalid_request_body },
@@ -28,10 +29,8 @@ export default async (
       return;
     }
 
-    await establishMongoConnection();
-    const redirectRes = await fetchRedirect(key);
-
-    if (!redirectRes) {
+    const opg = await ogs({ url });
+    if (opg.error) {
       apiMessage(res, {
         success: false,
         message: ErrorMessage.not_found,
@@ -41,7 +40,7 @@ export default async (
 
     apiMessage(res, {
       success: true,
-      content: redirectRes,
+      content: opg.result,
       message: SuccessMessage.success,
     });
   } catch (error) {
@@ -53,6 +52,9 @@ export default async (
   }
 };
 
-export const callGetRedirect = async (key: string) => {
-  return axiosClient.get<IAPIResponse<IRedirect>>(key);
+export const callScrapeTags = async (url: string) => {
+  return axiosClient.post<IAPIResponse<OgObjectInteral>>(
+    'internal/scrape-tags/',
+    { url }
+  );
 };

@@ -44,41 +44,41 @@ const Index = () => {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <div className="md:w-2/5">
-        <div className="-mt-24 flex w-full flex-col gap-5">
-          <motion.div
-            layout
-            className="flex flex-row flex-wrap items-center justify-center gap-y-5"
-          >
-            {map(pages, (page) => (
-              <button
-                disabled={page.disabled}
-                type="button"
-                onClick={() => {
-                  handleTabChange(page.target);
-                }}
-                className={`${
-                  page.disabled
-                    ? `cursor-not-allowed opacity-25`
-                    : `hover:bg-black/5`
-                } relative px-4 py-2 transition ease-in-out`}
-              >
-                {page.title}
-                <div className="absolute bottom-0 left-0 h-0.5 w-full px-5">
-                  <AnimatePresence mode="popLayout">
-                    {currentTab === page.target && (
-                      <motion.div
-                        transition={{ type: 'spring', bounce: 0.05 }}
-                        layoutId="tab-bar"
-                        className=" h-full w-full rounded-full bg-blue-500"
-                      />
-                    )}
-                  </AnimatePresence>
-                </div>
-              </button>
-            ))}
-          </motion.div>
-          <div>
+      <div className="flex h-[calc(100vh-114px)] w-full flex-col items-center justify-center gap-5 overflow-hidden overflow-y-auto">
+        <div className="m-auto h-full w-full">
+          <div className=" flex flex-col items-center justify-center gap-5">
+            <motion.div
+              layout
+              className="flex flex-row flex-wrap items-center justify-center gap-y-5"
+            >
+              {map(pages, (page) => (
+                <button
+                  disabled={page.disabled}
+                  type="button"
+                  onClick={() => {
+                    handleTabChange(page.target);
+                  }}
+                  className={`${
+                    page.disabled
+                      ? `cursor-not-allowed opacity-25`
+                      : `hover:bg-black/5`
+                  } relative px-4 py-2 transition ease-in-out`}
+                >
+                  {page.title}
+                  <div className="absolute bottom-0 left-0 h-0.5 w-full px-5">
+                    <AnimatePresence mode="popLayout">
+                      {currentTab === page.target && (
+                        <motion.div
+                          transition={{ type: 'spring', bounce: 0.05 }}
+                          layoutId="tab-bar"
+                          className=" h-full w-full rounded-full bg-blue-500"
+                        />
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </button>
+              ))}
+            </motion.div>
             {find(pages, (page) => isEqual(page.target, currentTab))?.component}
           </div>
         </div>

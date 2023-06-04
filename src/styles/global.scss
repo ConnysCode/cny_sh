@@ -8,6 +8,14 @@ body {
 
 footer {
   a {
-    @apply text-text-dark/25 fill-text-dark/25 hover:text-blue-500 hover:fill-blue-500 transition ease-in-out
+    @apply text-text-dark/25 fill-text-dark/25 hover:text-blue-500 hover:fill-blue-500 transition ease-in-out;
   }
+}
+
+input, textarea {
+  @apply h-10 w-full rounded-md border bg-white px-3 outline-none ring-blue-500 transition ease-in-out focus-within:ring-2 hover:ring-1 hover:focus-within:ring-2;
+}
+
+textarea {
+  @apply p-3 h-24;
 }

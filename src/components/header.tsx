@@ -4,8 +4,8 @@ interface IHeaderProps {}
 
 const Header: FC<IHeaderProps> = () => {
   return (
-    <header className="pointer-events-none absolute left-0 top-0 flex w-full items-center justify-center gap-5 py-5 text-xs opacity-25">
-      <p>cny.sh</p>
+    <header className="fixed left-0 top-0 flex w-full items-center justify-center gap-5 border-b bg-background/50 py-5 text-xs backdrop-blur-sm md:border-b-transparent ">
+      <p className="text-black/25">cny.sh</p>
     </header>
   );
 };

@@ -42,7 +42,7 @@ export default async (
       return;
     }
 
-    const redirectRes = await createRedirect(url, isWhitespaced);
+    const redirectRes = await createRedirect(url, body.opg, isWhitespaced);
     apiMessage(res, {
       success: true,
       content: {
