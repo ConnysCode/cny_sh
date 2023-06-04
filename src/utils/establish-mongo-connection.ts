@@ -9,7 +9,5 @@ export default () => {
       : `${process.env.MONGO_HOST}`
   }:${process.env.MONGO_PORT || `27017`}/?authMechanism=DEFAULT`;
 
-  console.log(uri, `uri`);
-
   return connect(uri, { dbName: 'cny_sh' });
 };
