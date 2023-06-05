@@ -6,18 +6,15 @@ import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
 import React from 'react';
 
-import Footer from '@/components/footer';
-import Header from '@/components/header';
-
 config.autoAddCss = false;
 
-const roboto = Montserrat({ weight: '500', subsets: ['latin'] });
+const roboto = Montserrat({ weight: ['400', '500'], subsets: ['latin'] });
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
   <main className={`${roboto.className}`}>
-    <Header />
+    {/* <Header /> */}
     <Component {...pageProps} />
-    <Footer />
+    {/* <Footer /> */}
   </main>
 );
 

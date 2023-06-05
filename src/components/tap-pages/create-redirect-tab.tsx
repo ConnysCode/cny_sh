@@ -80,6 +80,9 @@ const CreateRedirectTab: FC<ICreateRedirectTabProps> = () => {
   );
 
   useEffect(() => {
+    setCustomOPGTags(undefined);
+    setSent(false);
+    setCreatedRedirect(undefined);
     if (!url) return;
     debouncedGetScrapeMetaTags(url);
   }, [url, debouncedGetScrapeMetaTags]);
@@ -104,10 +107,6 @@ const CreateRedirectTab: FC<ICreateRedirectTabProps> = () => {
                       global: true,
                       multiline: true,
                       message: `A secure (https://) URL is required to use this tool.`,
-                    },
-                    onChange() {
-                      setSent(false);
-                      setCreatedRedirect(undefined);
                     },
                   })}
                   type="url"

@@ -11,7 +11,7 @@ interface IDiscordEmbedProps {
 
 const DiscordEmbed: FC<IDiscordEmbedProps> = ({ tags, customTags }) => {
   return (
-    <div className="relative flex h-fit flex-col gap-4 overflow-hidden rounded-md border border-[#E3E5E8] bg-[#F2F3F5] p-5 shadow-sm">
+    <div className="embed-shadow relative flex h-fit flex-col gap-4 overflow-hidden rounded-md border-[#E3E5E8] bg-[#F2F3F5] p-5 shadow-sm">
       <div className="absolute left-0 top-0 h-full w-1 bg-[#E3E5E8]" />
       <div className="flex flex-col gap-2">
         {(customTags?.origin || tags.ogSiteName) && (

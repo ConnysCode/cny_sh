@@ -19,7 +19,7 @@ const TwitterEmbed: FC<ITwitterEmbedProps> = ({ tags, customTags }) => {
     }
   };
   return (
-    <div className="flex h-fit flex-col overflow-hidden rounded-lg border bg-white shadow-sm">
+    <div className="embed-shadow flex h-fit flex-col overflow-hidden rounded-lg bg-white shadow-sm">
       {(customTags?.image || (tags.ogImage && size(tags.ogImage) > 0)) && (
         <div className="grow overflow-hidden">
           <img
