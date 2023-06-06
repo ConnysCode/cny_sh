@@ -39,6 +39,7 @@
         "project": "./tsconfig.json"
       },
       "rules": {
+        "tailwindcss/no-custom-classname": "off",
         "jsx-a11y/label-has-associated-control": "off",
         "@typescript-eslint/no-unused-expressions": "off",
         "import/no-anonymous-default-export": "off",

@@ -29,7 +29,7 @@ export const HeaderLayerOne = () => (
 
 export const HeaderLayerTwo = () => (
   <svg
-  className="wave"
+    className="wave"
     width="1728"
     height="533"
     viewBox="0 0 1728 533"
@@ -58,7 +58,7 @@ export const HeaderLayerTwo = () => (
 
 export const HeaderLayerThree = () => (
   <svg
-  className="wave"
+    className="wave"
     width="1728"
     height="533"
     viewBox="0 0 1728 533"
