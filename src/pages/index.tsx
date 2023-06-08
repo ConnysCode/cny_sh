@@ -26,8 +26,18 @@ type RedirectFormInputs = {
 };
 
 const defaultOPGTags: OgObjectInteral = {
-  dcTitle: 'cny.sh',
-  ogTitle: 'cny.sh',
+  dcTitle: 'cny.sh - Customize. Share. Stand Out!',
+  ogTitle: 'cny.sh - Customize. Share. Stand Out!',
+  ogDescription:
+    'Discover the power of link customization and self-expression with cny.sh. Our cutting-edge link shortener provides you with a platform to unlock the full potential of your shortened URLs. Tailor the embeds of your shortened links to reflect your individuality, allowing you to share and promote with a personal touch. Experience the freedom to customize and express yourself with cny.sh, where every link can become a unique reflection of your style and identity.',
+  dcDescription:
+    'Discover the power of link customization and self-expression with cny.sh. Our cutting-edge link shortener provides you with a platform to unlock the full potential of your shortened URLs. Tailor the embeds of your shortened links to reflect your individuality, allowing you to share and promote with a personal touch. Experience the freedom to customize and express yourself with cny.sh, where every link can become a unique reflection of your style and identity.',
+  ogImage: [
+    {
+      url: 'http://cdn.namespace.media/s/s8tNTZ7D8F8SaQX/download/cny%20bg%206.png',
+      type: '',
+    },
+  ],
 };
 
 const Index = () => {
@@ -92,11 +102,13 @@ const Index = () => {
     createRedirect(data);
   };
   return (
-    <div className="flex w-full flex-col gap-10">
+    <div className="flex w-[100vdh] flex-col gap-10 overflow-hidden">
       <div className="relative">
         <div className="relative">
-          <HeaderLayerOne />
-          <div className="absolute left-0 top-0 flex h-[500px] w-[530px] flex-col items-center justify-center gap-6 px-16">
+          <div className="opacity-0 md:opacity-100 animate-hover">
+            <HeaderLayerOne />
+          </div>
+          <div className="absolute left-0 top-0 flex h-[500px] w-full flex-col items-center justify-center gap-6 px-16 md:w-[530px]">
             <Heading text="cny.sh" variant="header" />
 
             <div className="w-full">
@@ -169,9 +181,9 @@ const Index = () => {
             </div>
 
             <div className="flex h-14 flex-row gap-7">
-              <Link className="text-white" href="/">
+              {/* <Link className="text-white" href="/">
                 Track Links
-              </Link>
+              </Link> */}
               <Link className="text-white" href="/">
                 Contribute
               </Link>
@@ -182,201 +194,119 @@ const Index = () => {
             src="https://media.discordapp.net/attachments/791841931486298152/1115362097988116500/image.png?width=1266&height=1020"
           /> */}
         </div>
-        <div className="absolute right-0 top-0 -z-10">
+        <div className="absolute right-0 top-0 -z-10 animate-hover-delay-800">
           <HeaderLayerTwo />
         </div>
-        <div className="absolute right-0 top-0 -z-20">
+        <div className="absolute right-0 top-0 -z-20 animate-hover-delay-1600">
           <HeaderLayerThree />
         </div>
       </div>
       <div className="container flex w-full flex-col gap-10">
         <Heading text="Embed Injector" variant="dark" />
         <div className="relative w-full">
-          <div className="relative mb-56 h-36 w-full rounded-[50px] pt-8">
+          <div className="pointer-events-none relative z-20 mb-56 flex h-fit w-full justify-center rounded-[50px] pt-8">
             <div
               style={{
                 backgroundImage:
                   'linear-gradient(122.57deg, #FF7360 18.01%, #F35959 83.47%)',
               }}
-              className="segment-shadow absolute left-0 top-0 -z-10 h-full w-full rounded-[50px]"
+              className="segment-shadow absolute top-0 -z-10 mx-auto h-36 w-4/5 rounded-[50px] sm:w-full"
             />
-            <div className=" z-0 grid w-full grid-cols-3 gap-28 px-[100px]">
-              <div className="z-10">
-                <AnimatePresence mode="wait">
-                  {selectedEdit !== `linkedin` && (
-                    <motion.div
-                      onClick={() => {
-                        setSelectedEdit(`linkedin`);
+            <div className="z-0 grid w-full grid-cols-1 gap-28 px-[100px] md:grid-cols-2 xl:grid-cols-3">
+              <div className="pointer-events-auto z-10 hidden xl:block">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={`embed-preview-linkedin-editmode-${
+                      selectedEdit === `linkedin` ? `enabled` : `disabled`
+                    }`}
+                    onClick={() => {
+                      setSelectedEdit(`linkedin`);
+                    }}
+                    layout
+                    layoutId="linkedin-dings"
+                    className="cursor-pointer"
+                  >
+                    <LinkedInEmbed
+                      onChange={(tags) => {
+                        setCustomOPGTags(tags);
                       }}
-                      whileHover={{
-                        scale: 1.05,
+                      editMode={selectedEdit === `linkedin`}
+                      tags={opgTags || defaultOPGTags}
+                      customTags={customOPGTags}
+                      requestEndEdit={() => {
+                        setSelectedEdit(undefined);
                       }}
-                      layout
-                      layoutId="linkedin-dings"
-                      className="cursor-pointer"
-                    >
-                      <LinkedInEmbed
-                        tags={opgTags || defaultOPGTags}
-                        customTags={customOPGTags}
-                      />
-                    </motion.div>
-                  )}
+                    />
+                  </motion.div>
                 </AnimatePresence>
               </div>
-              <div className="z-0">
-                <AnimatePresence mode="wait">
-                  {selectedEdit !== `discord` && (
-                    <motion.div
-                      onClick={() => {
-                        setSelectedEdit(`discord`);
+              <div className="pointer-events-auto z-0">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={`embed-preview-discord-editmode-${
+                      selectedEdit === `discord` ? `enabled` : `disabled`
+                    }`}
+                    onClick={() => {
+                      selectedEdit !== `discord` && setSelectedEdit(`discord`);
+                    }}
+                    layout
+                    layoutId="discord-dings"
+                    className="w-full cursor-pointer"
+                  >
+                    <DiscordEmbed
+                      onChange={(tags) => {
+                        setCustomOPGTags(tags);
                       }}
-                      whileHover={{
-                        scale: 1.05,
+                      editMode={selectedEdit === `discord`}
+                      tags={opgTags || defaultOPGTags}
+                      customTags={customOPGTags}
+                      requestEndEdit={() => {
+                        setSelectedEdit(undefined);
                       }}
-                      layout
-                      layoutId="discord-dings"
-                      className="cursor-pointer"
-                    >
-                      <DiscordEmbed
-                        tags={opgTags || defaultOPGTags}
-                        customTags={customOPGTags}
-                      />
-                    </motion.div>
-                  )}
+                    />
+                  </motion.div>
                 </AnimatePresence>
               </div>
-              <div className="z-10">
-                <AnimatePresence mode="wait">
-                  {selectedEdit !== `twitter` && (
-                    <motion.div
-                      onClick={() => {
-                        setSelectedEdit(`twitter`);
+              <div className="pointer-events-auto z-10 hidden md:block">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={`embed-preview-twitter-editmode-${
+                      selectedEdit === `twitter` ? `enabled` : `disabled`
+                    }`}
+                    onClick={() => {
+                      setSelectedEdit(`twitter`);
+                    }}
+                    layout
+                    layoutId="twitter-dings"
+                    className="cursor-pointer"
+                  >
+                    <TwitterEmbed
+                      onChange={(tags) => {
+                        setCustomOPGTags(tags);
                       }}
-                      whileHover={{
-                        scale: 1.05,
+                      editMode={selectedEdit === `twitter`}
+                      tags={opgTags || defaultOPGTags}
+                      customTags={customOPGTags}
+                      requestEndEdit={() => {
+                        setSelectedEdit(undefined);
                       }}
-                      layout
-                      layoutId="twitter-dings"
-                      className="cursor-pointer"
-                    >
-                      <TwitterEmbed
-                        tags={opgTags || defaultOPGTags}
-                        customTags={customOPGTags}
-                      />
-                    </motion.div>
-                  )}
+                    />
+                  </motion.div>
                 </AnimatePresence>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-      <div />
-      <AnimatePresence mode="wait">
-        {!!selectedEdit && (
-          <motion.div
-            initial="init"
-            animate="base"
-            exit="exit"
-            variants={{
-              init: { opacity: 0 },
-              base: { opacity: 1 },
-              exit: { opacity: 0 },
-            }}
-            className="fixed left-0 top-0 z-10 h-screen w-screen"
-          >
-            <div
-              onClick={() => {
-                console.log('hi');
-
-                setSelectedEdit(undefined);
-              }}
-              className="absolute left-0 top-0 z-0 h-full w-full bg-red-500/75"
-            />
-            <div className="pointer-events-none absolute z-10 flex h-full w-full items-center justify-center">
-              <motion.div
-                variants={{
-                  init: { width: 0 },
-                  base: { width: '30%' },
-                  exit: { width: 0 },
-                }}
-                style={{
-                  backgroundImage:
-                    'linear-gradient(122.57deg, #FF7360 18.01%, #F35959 83.47%)',
-                }}
-                className="segment-shadow h-20 rounded-[25px]"
-              />
-            </div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="container pointer-events-none relative z-20 grid h-full w-full grid-cols-3 flex-row gap-24 px-[100px]"
-            >
-              <div />
-              <div className="flex h-full w-full items-center justify-center">
-                {(() => {
-                  switch (selectedEdit) {
-                    case `discord`:
-                      return (
-                        <motion.div
-                          layout
-                          layoutId={`${selectedEdit}-dings`}
-                          className="pointer-events-auto w-full"
-                        >
-                          <DiscordEmbed
-                            onChange={(newTags) => {
-                              console.log(newTags);
-
-                              setCustomOPGTags(newTags);
-                            }}
-                            editMode
-                            tags={opgTags || defaultOPGTags}
-                            customTags={customOPGTags}
-                          />
-                        </motion.div>
-                      );
-                    case `linkedin`:
-                      return (
-                        <motion.div
-                          layout
-                          layoutId={`${selectedEdit}-dings`}
-                          className="pointer-events-auto w-full"
-                        >
-                          <LinkedInEmbed
-                            tags={opgTags || defaultOPGTags}
-                            customTags={customOPGTags}
-                          />
-                        </motion.div>
-                      );
-                    case `twitter`:
-                    default:
-                      return (
-                        <motion.div
-                          layout
-                          layoutId={`${selectedEdit}-dings`}
-                          className="pointer-events-auto w-full"
-                        >
-                          <TwitterEmbed
-                            tags={opgTags || defaultOPGTags}
-                            customTags={customOPGTags}
-                          />
-                        </motion.div>
-                      );
-                  }
-                })()}
-              </div>
-              <div />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {selectedEdit && (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          onClick={() => {
+            setSelectedEdit(undefined);
+          }}
+          className="fixed left-0 top-0 z-10 h-screen w-screen"
+        />
+      )}
     </div>
   );
 };

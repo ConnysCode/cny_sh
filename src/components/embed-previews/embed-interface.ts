@@ -10,6 +10,7 @@ interface IEmbedInterfaceContent {
 interface IEmbedInterface extends IEmbedInterfaceContent {
   editMode?: boolean;
   onChange?: (tags: ICustomOPG) => void;
+  requestEndEdit?: () => void;
 }
 
 export default IEmbedInterface;
