@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import type IEmbedInterface from './embed-interface';
 
-const TwitterEmbed: FC<IEmbedInterface> = ({
+const LinkedInEmbed: FC<IEmbedInterface> = ({
   tags,
   customTags,
   editMode,
@@ -18,7 +18,7 @@ const TwitterEmbed: FC<IEmbedInterface> = ({
     }
   };
   return (
-    <div className="embed-shadow relative flex h-fit flex-col rounded-lg bg-white shadow-sm">
+    <div className="embed-shadow relative flex h-fit flex-col bg-white shadow-sm">
       {(customTags?.image || (tags.ogImage && size(tags.ogImage) > 0)) && (
         <div className="relative aspect-video grow overflow-hidden border-b">
           <img
@@ -51,8 +51,8 @@ const TwitterEmbed: FC<IEmbedInterface> = ({
         </div>
       )}
 
-      <div className="flex max-h-fit flex-col gap-2 p-3">
-        {(customTags?.title || tags.ogTitle || editMode) &&
+      <div className="flex max-h-fit flex-col gap-1 p-3">
+        {(customTags?.title || tags.ogTitle) &&
           (editMode ? (
             <input
               onChange={(e) => {
@@ -65,21 +65,6 @@ const TwitterEmbed: FC<IEmbedInterface> = ({
           ) : (
             <p className="text-xs font-bold">
               {customTags?.title || tags.ogTitle}
-            </p>
-          ))}
-        {(customTags?.description || tags.ogDescription || editMode) &&
-          (editMode ? (
-            <textarea
-              onChange={(e) => {
-                onChange &&
-                  onChange({ ...customTags, description: e.target.value });
-              }}
-              value={customTags?.description || tags.ogDescription}
-              className="text-xs text-text-dark/50"
-            />
-          ) : (
-            <p className="line-clamp-1 text-xs opacity-75">
-              {customTags?.description || tags.ogDescription}
             </p>
           ))}
         {(customTags?.origin ||
@@ -101,7 +86,7 @@ const TwitterEmbed: FC<IEmbedInterface> = ({
               className="text-xs text-text-dark/50"
             />
           ) : (
-            <p className="text-xs opacity-25">
+            <p className="text-[.6rem] font-medium uppercase opacity-25">
               {customTags?.origin ||
                 getDomainName(tags.ogUrl || '') ||
                 tags.ogSiteName}
@@ -112,4 +97,4 @@ const TwitterEmbed: FC<IEmbedInterface> = ({
   );
 };
 
-export default TwitterEmbed;
+export default LinkedInEmbed;
