@@ -112,7 +112,7 @@ const Index = () => {
     } else createRedirect(data);
   };
   return (
-    <div className="flex w-[100vdh] flex-col gap-10 overflow-hidden">
+    <div className="flex w-[100vdh] flex-col gap-10 min-h-screen overflow-hidden">
       <div className="relative">
         <div className="relative">
           <div className="animate-hover opacity-0 md:opacity-100">
