@@ -9,6 +9,8 @@ import { callGetRedirect } from '@/api/routes/get-redirect';
 import { callScrapeTags } from '@/api/routes/scrape-tags';
 import type { IRedirect } from '@/interfaces/redirect';
 
+import { defaultOPGTags } from '.';
+
 export async function getServerSideProps(context: any) {
   try {
     const key = context.query.key.toString();
@@ -33,6 +35,7 @@ export async function getServerSideProps(context: any) {
     return {
       props: {
         ...data.content,
+        opg: { ...defaultOPGTags, ...data.content.opg },
         scrapedOPG: scrapedOPG.data.success ? scrapedOPG.data.content : null,
       },
     };
