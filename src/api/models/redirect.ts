@@ -18,6 +18,10 @@ const redirectSchema = new Schema<IRedirect>({
     required: true,
     unique: true,
   },
+  opg: {
+    type: Schema.Types.Mixed,
+    required: false,
+  },
 });
 
 export default (models?.redirect ||
